@@ -1,0 +1,17 @@
+name: simple-worm-inv
+
+channels:
+  - conda-forge
+  - pytorch
+
+dependencies:
+  - python = 3.9
+  - fenics = 2019.1.0
+  - numpy = 1.19
+  - pytorch = 1.7
+  - matplotlib = 3.3
+  - scikit-learn = 0.24
+  - pip
+  - pip:
+      - git+https://github.com/dolfin-adjoint/pyadjoint.git@1c9c15c1fa2c1a470826143ce98b721ebd00facd
+      - tensorboard == 2.4.1

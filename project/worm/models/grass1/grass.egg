@@ -1,0 +1,73 @@
+<CoordinateSystem> { Z-Up }
+
+<Comment> {
+  "bam2egg grass.bam grass.egg"
+}
+<Texture> thumb-green-grass-texture-4k-summer-macro-green-background {
+  "thumb-green-grass-texture-4k-summer-macro-green-background.jpg"
+  <Scalar> format { srgb }
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { nearest_mipmap_linear }
+  <Scalar> magfilter { linear }
+  <Scalar> envtype { modulate }
+  <Scalar> uv-name { 0 }
+}
+<Material> thumb-green-grass-texture-4k-summer-macro-green-background {
+  <Scalar> baser { 1 }
+  <Scalar> baseg { 1 }
+  <Scalar> baseb { 1 }
+  <Scalar> emitr { 0 }
+  <Scalar> emitg { 0 }
+  <Scalar> emitb { 0 }
+  <Scalar> emita { 0 }
+  <Scalar> roughness { 0.5 }
+  <Scalar> metallic { 0 }
+  <Scalar> local { 0 }
+}
+<VertexPool> Scene {
+  <Vertex> 0 {
+    -78.9549179077148 -49.3468246459961 0
+    <UV> 0 { 0 0 }
+    <Normal> { 0 0 98.6936492919922 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 1 {
+    78.9549179077148 -49.3468246459961 0
+    <UV> 0 { 1 0 }
+    <Normal> { 0 0 98.6936492919922 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 2 {
+    78.9549179077148 49.3468246459961 0
+    <UV> 0 { 1 1 }
+    <Normal> { 0 0 98.6936492919922 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 3 {
+    -78.9549179077148 49.3468246459961 0
+    <UV> 0 { 0 1 }
+    <Normal> { 0 0 98.6936492919922 }
+    <RGBA> { 1 1 1 1 }
+  }
+}
+<Group> thumb-green-grass-texture-4k-summer-macro-green-background {
+  <Transform> {
+    <Scale> { 98.6936492919922 98.6936492919922 98.6936492919922 }
+  }
+  <Group> thumb-green-grass-texture-4k-summer-macro-green-background.001 {
+    <Scalar> alpha { blend }
+    <Polygon> {
+      <TRef> { thumb-green-grass-texture-4k-summer-macro-green-background }
+      <MRef> { thumb-green-grass-texture-4k-summer-macro-green-background }
+      <BFace> { 1 }
+      <VertexRef> { 0 1 2 <Ref> { Scene } }
+    }
+    <Polygon> {
+      <TRef> { thumb-green-grass-texture-4k-summer-macro-green-background }
+      <MRef> { thumb-green-grass-texture-4k-summer-macro-green-background }
+      <BFace> { 1 }
+      <VertexRef> { 0 2 3 <Ref> { Scene } }
+    }
+  }
+}

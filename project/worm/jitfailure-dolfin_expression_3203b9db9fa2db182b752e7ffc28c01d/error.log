@@ -1,0 +1,8 @@
+/tmp/tmpgwut0hv0/dolfin_expression_3203b9db9fa2db182b752e7ffc28c01d.cpp: In member function 'virtual void dolfin::dolfin_expression_3203b9db9fa2db182b752e7ffc28c01d::eval(Eigen::Ref<Eigen::Matrix<double, -1, 1> >, Eigen::Ref<const Eigen::Matrix<double, -1, 1> >) const':
+/tmp/tmpgwut0hv0/dolfin_expression_3203b9db9fa2db182b752e7ffc28c01d.cpp:61:43: error: 't' was not declared in this scope; did you mean 'tm'?
+   61 |           values[0] = 10*sin(2.0*pi*(x[0]-t))+v;
+      |                                           ^
+      |                                           tm
+/tmp/tmpgwut0hv0/dolfin_expression_3203b9db9fa2db182b752e7ffc28c01d.cpp:61:47: error: 'v' was not declared in this scope
+   61 |           values[0] = 10*sin(2.0*pi*(x[0]-t))+v;
+      |                                               ^

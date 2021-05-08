@@ -1,0 +1,96 @@
+<CoordinateSystem> { Z-Up }
+
+<Comment> {
+  "bam2egg sandbam.bam sand2.egg"
+}
+<Texture> sandstone_blocks_04_rough_2k {
+  "/home/stefanos/Downloads/panda3d-1.10.8/samples/worm/models/sandstone_blocks_04_rough_2k.jpg"
+  <Scalar> format { luminance }
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { nearest_mipmap_linear }
+  <Scalar> magfilter { linear }
+  <Scalar> envtype { selector }
+  <Scalar> uv-name { 0 }
+}
+<Texture> sandstone_blocks_04_diff_2k {
+  "/home/stefanos/Downloads/panda3d-1.10.8/samples/worm/models/sandstone_blocks_04_diff_2k.jpg"
+  <Scalar> format { srgb }
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { nearest_mipmap_linear }
+  <Scalar> magfilter { linear }
+  <Scalar> envtype { modulate }
+  <Scalar> uv-name { 0 }
+}
+<Texture> sandstone_blocks_04_bump_2k {
+  "/home/stefanos/Downloads/panda3d-1.10.8/samples/worm/models/sandstone_blocks_04_bump_2k.jpg"
+  <Scalar> format { luminance }
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { nearest_mipmap_linear }
+  <Scalar> magfilter { linear }
+  <Scalar> envtype { normal }
+  <Scalar> uv-name { 0 }
+}
+<Material> Material.001 {
+  <Scalar> baser { 1 }
+  <Scalar> baseg { 1 }
+  <Scalar> baseb { 1 }
+  <Scalar> emitr { 0 }
+  <Scalar> emitg { 0 }
+  <Scalar> emitb { 0 }
+  <Scalar> emita { 0 }
+  <Scalar> roughness { 1 }
+  <Scalar> metallic { 0 }
+  <Scalar> local { 0 }
+}
+<VertexPool> Scene {
+  <Vertex> 0 {
+    -6.95005130767822 -6.0364089012146 0
+    <UV> 0 { 0 0 }
+    <Normal> { 0 0 1 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 1 {
+    6.95005130767822 -6.0364089012146 0
+    <UV> 0 { 1 0 }
+    <Normal> { 0 0 1 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 2 {
+    6.95005130767822 6.0364089012146 0
+    <UV> 0 { 1 1 }
+    <Normal> { 0 0 1 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 3 {
+    -6.95005130767822 6.0364089012146 0
+    <UV> 0 { 0 1 }
+    <Normal> { 0 0 1 }
+    <RGBA> { 1 1 1 1 }
+  }
+}
+<Group> Plane {
+  <Transform> {
+    <Scale> { 6.95005130767822 6.0364089012146 1 }
+  }
+  <Group> Plane {
+    <Polygon> {
+      <TRef> { sandstone_blocks_04_diff_2k }
+      <TRef> { sandstone_blocks_04_rough_2k }
+      <TRef> { sandstone_blocks_04_bump_2k }
+      <MRef> { Material.001 }
+      <BFace> { 1 }
+      <VertexRef> { 0 1 2 <Ref> { Scene } }
+    }
+    <Polygon> {
+      <TRef> { sandstone_blocks_04_diff_2k }
+      <TRef> { sandstone_blocks_04_rough_2k }
+      <TRef> { sandstone_blocks_04_bump_2k }
+      <MRef> { Material.001 }
+      <BFace> { 1 }
+      <VertexRef> { 0 2 3 <Ref> { Scene } }
+    }
+  }
+}
