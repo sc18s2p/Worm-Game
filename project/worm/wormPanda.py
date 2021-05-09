@@ -31,9 +31,7 @@ import math
 import sys
 import os
 
-from panda3d.bullet import BulletSphereShape
-from panda3d.bullet import BulletRigidBodyNode
-from panda3d.bullet import BulletWorld
+
 
 import time
 from fenics import Expression
@@ -48,36 +46,7 @@ def addInstructions(pos, msg):
     return OnscreenText(text=msg, style=1, fg=(1, 1, 1, 1), scale=.05,
                         shadow=(0, 0, 0, 1), parent=base.a2dTopLeft,
                         pos=(0.08, -pos - 0.04), align=TextNode.ALeft)
-def normalizeTriangle(x,y,z):
-    ''' Normalize a numpy array of 3 component vectors shape=(n,3) '''
-    # arr=np.array([0,0,0])
-    arr=([0,0,0])
-    A=z-y
-    B=y-x
-    # a1=(A[1]*B[2])-(A[2]*B[1])
-    # a2=(A[2]*B[0])-(A[0]*B[2])
-    # a3=(A[0]*B[1])-(A[1]*B[0])
-    # print(a1)
-    # print(a2)
-    # print(a3)
-    # # print(a1)
-    # arr[0]=a1/a3
-    # arr[1]=a2/a3
-    # arr[2]=1.0
-    vlength=sqrt(x*x+y*y+z*z)
-    arr[0]=x/vlength
-    arr[1]=y/vlength
-    arr[2]=z/vlength
-    # arr/=np.linalg.norm(arr)
-    # if a1<0:
-    #     arr[0]=-1
-    # if a2<0:
-    #     arr[1]=-1
-    # if a3<0:
-    #     arr[2]=-1
 
-
-    return arr
 
 
 
@@ -88,13 +57,17 @@ class WormDemo(ShowBase):
         # create a window and set up everything we need for rendering into it.
         ShowBase.__init__(self)
 
-        # This creates the on screen title that is in every tutorial
+        # This creates the on screen title
         self.title = OnscreenText(text="Panda3D:Worm",
                                   parent=base.a2dBottomCenter,
                                   fg=(1, 1, 1, 1), shadow=(0, 0, 0, .5),
                                   pos=(0, .1), scale=.1)
         # Post the instructions
-
+        self.s1 = OnscreenText(text="Score:",
+                                  parent=base.a2dTopCenter,
+                                  fg=(1, 1, 1, 1), shadow=(0, 0, 0, .5),
+                                  pos=(0, .1), scale=.1)
+                                  
         self.inst1 = addInstructions(0.06, "[ESC]: Quit")
         self.inst2 = addInstructions(0.12, "[J]: Rotate Worm Left")
         self.inst3 = addInstructions(0.18, "[L]: Rotate Worm Right")
@@ -103,9 +76,9 @@ class WormDemo(ShowBase):
         self.inst6 = addInstructions(0.36, "[A]: Rotate Camera Left")
         self.inst7 = addInstructions(0.42, "[D]: Rotate Camera Right")
         self.inst8 = addInstructions(0.48, "[Z]: Rotate Camera Upwards")
-        self.inst9 = addInstructions(0.54, "[x]: Rotate Camera Downwards")
+        self.inst9 = addInstructions(0.54, "[X]: Rotate Camera Downwards")
           # Allow manual positioning of the camera
-         # Set the cameras' position    # self.world.attachRigidBody(np.node())
+         # Set the cameras' position    
                                                 # and orientation
         #x+R(cos(theta)*e1+sin(theta(e2)))
         # Set the background color to black
@@ -158,20 +131,7 @@ class WormDemo(ShowBase):
         x=Point3(0,1,0)
         y=Point3(0,0,0)
 
-        # b=normalizeTriangle(0,2,0)
-        # print(b)
-        # self.nWorm=wm(101,self.dt)
-        # dlight=DirectionalLight('my dlight')
-        # d1np=render.attachNewNode(dlight)
-        # d1np.setPos(-5,-5,0)
-        # d1np.lookAt(0,0,0)
-        # camera.setPos( 0, 0, 50)
-        # camera.lookAt( 0, 0, 0 )
-# Create Ambient Light
-        # ambientLight = AmbientLight('ambientLight')
-        # ambientLight.setColor((0.1, 0.1, 0.1, 1))
-        # ambientLightNP = render.attachNewNode(ambientLight)
-        # render.setLight(ambientLightNP)
+
 
         # Directional light 01
         directionalLight = DirectionalLight('directionalLight')
@@ -189,7 +149,7 @@ class WormDemo(ShowBase):
         # directionalLightNP = render.attachNewNode(directionalLight)
         # # This light is facing forwards, away from the camera.
         # directionalLightNP.setHpr(0, -20, 0)
-        render.setLight(directionalLightNP)
+       # render.setLight(directionalLightNP)
         #
         # # Now attach a green light only to object x.
         ambient = AmbientLight('ambient')
@@ -208,16 +168,8 @@ class WormDemo(ShowBase):
         # object first, and then turning on only the green light.
 
         self.dt = globalClock.getDt()
-        # world=BulletWorld()
-        # shape=BulletSphereShape(10.5)
-        # node=BulletRigidBodyNode('Sphere')
-        # node.addShape(shape)
-        # np=render.attachNewNode(node)
-        # np.setPos(1.,1.,1.)
-        # world.attachRigidBody(node)
-        # nWorm=wm(101,self.dt)
-        #x+R(cos(theta)*e1+sin(theta(e2)))
 
+        self.score=0
         self.eachb=[]
         self.eachc=[]
         self.eachd=[]
@@ -242,13 +194,7 @@ class WormDemo(ShowBase):
         self.myMaterial.setSpecular(	(0.332741 	,0.328634 ,	0.346435 ,1))
         self.c=0
         self.vn='triangle'+str(self.c)
-         	#
-        # #
-        # terrain = GeoMipTerrain("mySimpleTerrain")
-        # terrain.setHeightfield("models/snow_field_aerial_height_2k.jpg")
-        # #terrain.setBruteforce(True)
-        # terrain.getRoot().reparentTo(render)
-        # terrain.generate()
+
         g = loader.loadModel("models/sand/snd.bam")
         g.setPos(0,0.,-0.2)
         g.reparentTo(render)
@@ -363,11 +309,10 @@ class WormDemo(ShowBase):
             x = cos(a)
             y = sin(a)
 
-            # b=newWorm.get_x()[cn1][0]+(newWorm.get_e1()[cn1][0]*x+newWorm.get_e2()[cn1][0]*y)*self.R
+
             b=arr1[cn1][0]+(arr2[cn1][0]*x+arr3[cn1][0]*y)*self.R
 
-            # c=newWorm.get_x()[cn1][1]+(newWorm.get_e1()[cn1][1]*x+newWorm.get_e2()[cn1][1]*y)*self.R
-            # d=newWorm.get_x()[cn1][2]+(newWorm.get_e1()[cn1][2]*x+newWorm.get_e2()[cn1][2]*y)*self.R
+
             c=arr1[cn1][1]+(arr2[cn1][1]*x+arr3[cn1][1]*y)*self.R
             d=arr1[cn1][2]+(arr2[cn1][2]*x+arr3[cn1][2]*y)*self.R
             appendb(b)
@@ -394,26 +339,34 @@ class WormDemo(ShowBase):
         newe1=self.nWorm.get_e1()
         newe2=self.nWorm.get_e2()
         self.camerapos=(newx[40][0],newx[40][1],newx[40][2])
-        print(newx[4][0],newx[4][1],newx[4][2])
+    
         a1=0
-        # print(newx[0])
-        # print(newx[9])
-        # newCircle(a1)            # if cn1>91:
-        #     self.R=0.001
-        
+
         start=time.time()
         for a1 in range(98):
             self.newCircle(a1,newx,newe1,newe2)
             if abs(newx[a1][1]-self.s.getY())<=0.13 and abs(newx[a1][0]-self.s.getX())<=0.13:
             	self.sunrad=self.sunrad+1
             	self.s.setPos(random.randint(-self.sunrad,self.sunrad),random.randint(-self.sunrad,self.sunrad),0.5)
+            	self.score=self.score+self.sunrad*10
+            	print('Score: ',self.score)
             	m = loader.loadModel("models/moon/moon.bam")
             	m.setPos(random.randint(-self.sunrad,self.sunrad),random.randint(-self.sunrad,self.sunrad),0.5)
             	m.reparentTo(render)
             	self.moons.append(m.getPos())
-            for j in range(self.sunrad-2):
-            	if abs(newx[a1][1]-self.moons[j][0])<=0.13 and abs(newx[a1][0]-self.moons[j][1])<=0.13:
+            	
+            for j in range(len(self.moons)):
+            	
+            	if abs(newx[a1][1]-self.moons[j][1])<=0.13 and abs(newx[a1][0]-self.moons[j][0])<=0.13:
             		print('Game over')
+            		print('Your final score is:', self.score)
+            		self.ship.removeNode()
+            		self.cnt=0
+            		self.score=0
+            		self.sunrad=0
+            		self.moons=[]
+            		
+            		
             		
             	
             	
@@ -424,23 +377,7 @@ class WormDemo(ShowBase):
         start2=time.time()
         i=0
 
-        # for i in range(929):
-        #     p0 = Point3(self.eachb[i],self.eachc[i],self.eachd[i])2.0*pi*
-        #     p1 = Point3(self.eachb[i+10], self.eachc[i+10],self.eachd[i+10])
-        #     p2 = Point3(self.eachb[i+1],self.eachc[i+1],self.eachd[i+1])
-        #     tr1 = create_triangle(p0,p1,p2, (0.7, 0.3, 0, 1))
-        #     gnode = GeomNode('triangle')
-        #     gnode.addGeom(tr1)
-        #     ship = self.render.attachNewNode(gnode)
-        #     # ambientNP = ship.attachNewNode(ambient)
-        #     # ship.setLightOff()
-        #     # ship.setLight(ambientNP)
-        #     # ship.setMaterial(myMaterial)
-        #     p0 = Point3(self.eachb[i+1],self.eachc[i+1],self.eachd[i+1])
-        #     p1 = Point3(self.eachb[i+10], self.eachc[i+10],self.eachd[i+10])
-        #     p2 = Point3(self.eachb[i+11],self.eachc[i+11],self.eachd[i+11])
-        #     tr2 = create_triangle(p0,p1,p2, (0.7, 0.3, 0, 1))
-        #     gnode2 = GeomNode('triangle')
+
         gnode2 = GeomNode(self.vn)
 
         gnode2.addGeom(self.create_triangle())
@@ -527,6 +464,7 @@ class WormDemo(ShowBase):
             # self.x=self.x+0.1
             if self.cright<6:
                 self.cright=self.cright+0.5
+                print(self.cright)
             # self.cright=self.cright+2
             # self.ship.setPos(self.x,self.y,self.z)
             # camera.lookAt(self.ship)
@@ -551,6 +489,7 @@ class WormDemo(ShowBase):
             # print(self.ship)
             if self.cright>-6:
                 self.cright=self.cright-0.5
+                print(self.cright)
             # self.x=self.x-0.1
             # self.ship.setPos(self.x,self.y,self.z)
             # if self.unlockvalue==1:
