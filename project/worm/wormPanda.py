@@ -228,20 +228,12 @@ class WormDemo(ShowBase):
         self.cdown=1
         self.sunrad=3
         self.moons=[]
-        # self.newx=[]
-        # self.newe1=[]
-        # self.newe2=[]
-        # appendb=self.eachb.append
-        # appendc=self.eachc.append
-        # appendd=self.eachd.append
+
         self.R=0.0
         # self.world=BulletWorld()
         # self.worldNP=render.attachNewNode('World')
         self.myMaterial=Material()
-        # myMaterial.setShininess(0.6*128)
-        # myMaterial.setAmbient((0.0215,0.1745,0.0215,1))
-        # myMaterial.setDiffuse((0.07568,0.61424,0.07568 ,1))
-        # myMaterial.setSpecular(	(0.633 ,0.727811 ,0.633 ,1))
+
         self.myMaterial.setShininess(0.3*128)
         self.myMaterial.setAmbient((0.05375 	,0.05 ,	0.06625,1))
         self.myMaterial.setDiffuse((0.18275 ,	0.17 ,	0.22525  ,1))
@@ -295,28 +287,18 @@ class WormDemo(ShowBase):
             p0 = Point3(self.eachb[i],self.eachc[i],self.eachd[i]+0.5)
             p1 = Point3(self.eachb[i+10], self.eachc[i+10],self.eachd[i+10]+0.5)
             p2 = Point3(self.eachb[i+1],self.eachc[i+1],self.eachd[i+1]+0.5)
-            if p1==self.s.getPos():
-                print('truee')
-            if p0==self.s.getPos():
-                print('truee')
-            if p2==self.s.getPos():
-                print('truee')
-            # if vertex.getData3!=0:
-            #     v = vertex.getData3()
-            #     texcoord.setData3(p0)
-            #     texcoord.setData3(p1)
-            #     texcoord.setData3(p2)
-            # else:
-            # if vert==None:
+
+
             vertex.addData3(p0)
             # else:
             #     vertex.setData3(p0)
             vertex.addData3(p1)
             vertex.addData3(p2)
-            normal.addData3(0,0,1)
-            normal.addData3(0,0,1)
-            normal.addData3(0,0,1)
 
+            normal.addData3(0,0,1)
+            normal.addData3(0,0,1)
+            normal.addData3(0,0,1)
+   
             tris.addVertices(k0,k1,k2)
 
 
@@ -335,9 +317,11 @@ class WormDemo(ShowBase):
             vertex.addData3(p2)
             #
             # x=[0,0,0]
+
             normal.addData3(0,0,1)
             normal.addData3(0,0,1)
             normal.addData3(0,0,1)
+              			
 
             tris.addVertices(k0,k1,k2)
 
@@ -484,24 +468,10 @@ class WormDemo(ShowBase):
         gnode2.addGeom(self.create_triangle())
         self.ship=self.render.attachNewNode(gnode2)
 
-        #
-        # self.x=0.0
-        # self.y=0.0
-        # self.z=0.0
-        # self.ship.setPos(self.x,self.y,self.z)
+
         camera.lookAt(self.ship)
         self.ship.setMaterial(self.myMaterial)
-        # slight = Spotlight('slight')
-        # slight.setColor((1, 1, 1, 1))
-        # lens = PerspectiveLens()
-        # slight.setLens(lens)
-        # slnp = render.attachNewNode(slight)
-        # slnp.setPos(-2, -10,0.)
-        # slnp.lookAt(ship)
-        # render.setLight(slnp)
-        # ambientNP = ship.attachNewNode(ambient)
-        # ship.setLightOff()
-        # ship.setLight(ambientNP)
+
         end2=time.time()
         print(end2-start2)
 
