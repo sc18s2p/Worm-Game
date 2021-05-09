@@ -96,12 +96,14 @@ class WormDemo(ShowBase):
         # Post the instructions
 
         self.inst1 = addInstructions(0.06, "[ESC]: Quit")
-        self.inst2 = addInstructions(0.12, "[Left Arrow]: Rotate Worm Left")
-        self.inst3 = addInstructions(0.18, "[Right Arrow]: Rotate Worm Right")
-        self.inst4 = addInstructions(0.24, "[Up Arrow]: Run Worm Forward")
-        self.inst6 = addInstructions(0.30, "[A]: Rotate Camera Left")
-        self.inst7 = addInstructions(0.36, "[S]: Rotate Camera Right")
-
+        self.inst2 = addInstructions(0.12, "[J]: Rotate Worm Left")
+        self.inst3 = addInstructions(0.18, "[L]: Rotate Worm Right")
+        self.inst4 = addInstructions(0.24, "[W]: Zoom Out")
+        self.inst5 = addInstructions(0.30, "[S]: Zoom In")
+        self.inst6 = addInstructions(0.36, "[A]: Rotate Camera Left")
+        self.inst7 = addInstructions(0.42, "[D]: Rotate Camera Right")
+        self.inst8 = addInstructions(0.48, "[Z]: Rotate Camera Upwards")
+        self.inst9 = addInstructions(0.54, "[x]: Rotate Camera Downwards")
           # Allow manual positioning of the camera
          # Set the cameras' position    # self.world.attachRigidBody(np.node())
                                                 # and orientation
@@ -371,41 +373,17 @@ class WormDemo(ShowBase):
             appendb(b)
             appendc(c)
             appendd(d)
-        #     if i==0:
-        #         ls.moveTo(b,c,d)
-        #     else:
-        #         ls.drawTo(b,c,d)
-        #         ls.moveTo(b,c,d)
-        # node=ls.create()
-        # self.render.attachNewNode(node)
-                    # print(b)
-        #     ls.moveTo(b,c,d)
-        #     ls.drawTo(b,c,d)
-        # node=ls.create()
-        # self.render.attachNewNode(node)
-        # self.R=0.0
+
 
 
     def updateWorm(self,control,control2):
         self.eachb.clear()
         self.eachc.clear()
         self.eachd.clear()
-        # print(len(self.eachb))
-        # if control==0:
-        #     self.nWorm.update(beta_pref=Expression('v',t=self.nWorm.t,v=control2,degree=1))
-        # else:
-        #     self.nWorm.update(alpha_pref=Expression('10*sin(2.0*pi*x[0]-t)+v',t=self.nWorm.t,v=control,degree=1))
+
 
         self.nWorm.update(alpha_pref=Expression('10*sin(2.0*pi*(x[0]-t))+v',t=self.nWorm.t,v=control,degree=1)),
-        # self.nWorm.update(alpha_pref=Expression('v',t=self.nWorm.t,v=control,degree=1)),
-        # beta_pref=Expression('v',t=self.nWorm.t,v=control2,degree=1))
 
-        # self.newx.clear()
-        # self.newe1.clear()
-        # self.newe2.clear()
-        # self.newx=self.nWorm.get_x()
-        # self.newe1=self.nWorm.get_e1()
-        # self.newe2=self.nWorm.get_e2()
         newx=[]
         newe1=[]
         newe2=[]
