@@ -64,10 +64,10 @@ class WormDemo(ShowBase):
                                   pos=(0, .1), scale=.1)
         # Post the instructions
         self.s1 = OnscreenText(text="Score:",
-                                  parent=base.a2dTopCenter,
+                                  parent=base.a2dTopLeft,
                                   fg=(1, 1, 1, 1), shadow=(0, 0, 0, .5),
-                                  pos=(0, .1), scale=.1)
-                                  
+                                  pos=(0.1, 0.1), scale=.1,align=TextNode.ALeft)
+                                 
         self.inst1 = addInstructions(0.06, "[ESC]: Quit")
         self.inst2 = addInstructions(0.12, "[J]: Rotate Worm Left")
         self.inst3 = addInstructions(0.18, "[L]: Rotate Worm Right")
@@ -156,12 +156,18 @@ class WormDemo(ShowBase):
         ambient.setColor((0.05,0.05, 0.2, 1))
         alnp=render.attachNewNode(ambient)
         render.setLight(alnp)
-        # plight = PointLight('plight')
-        # plight.setColor((0.2, 0.2, 0.2, 1))
-        # plnp = render.attachNewNode(plight)
-        # plnp.setPos(10, 20, 20)
-        # render.setLight(plnp)
+        
 
+        
+
+        #plight = PointLight('plight')
+        #plight.setColor((0.2, 0.2, 0.2, 1))
+        #plnp = render.attachNewNode(plight)
+        #plnp.setPos(10, 20, 20)
+        #render.setLight(plnp)
+
+        #plight.setShadowCaster(True,16,16)
+        #render.setShaderAuto()
         # If we did not call setLightOff() first, the green light would add to
         # the total set of lights on this object. Since we do call
         # setLightOff(), we are turning off all the other lights on this
@@ -325,7 +331,7 @@ class WormDemo(ShowBase):
         self.eachb.clear()
         self.eachc.clear()
         self.eachd.clear()
-
+        lose=0
 
         self.nWorm.update(alpha_pref=Expression('10*sin(2.0*pi*(x[0]-t))+v',t=self.nWorm.t,v=control,degree=1)),
 
@@ -338,7 +344,7 @@ class WormDemo(ShowBase):
         newx=self.nWorm.get_x()
         newe1=self.nWorm.get_e1()
         newe2=self.nWorm.get_e2()
-        self.camerapos=(newx[40][0],newx[40][1],newx[40][2])
+        self.camerapos=(newx[50][0],newx[50][1],newx[50][2])
     
         a1=0
 
@@ -360,7 +366,7 @@ class WormDemo(ShowBase):
             	if abs(newx[a1][1]-self.moons[j][1])<=0.13 and abs(newx[a1][0]-self.moons[j][0])<=0.13:
             		print('Game over')
             		print('Your final score is:', self.score)
-            		self.ship.removeNode()
+            		lose=1
             		self.cnt=0
             		self.score=0
             		self.sunrad=0
@@ -381,12 +387,13 @@ class WormDemo(ShowBase):
         gnode2 = GeomNode(self.vn)
 
         gnode2.addGeom(self.create_triangle())
-        self.ship=self.render.attachNewNode(gnode2)
+        self.wNode=self.render.attachNewNode(gnode2)
 
 
-        camera.lookAt(self.ship)
-        self.ship.setMaterial(self.myMaterial)
-
+        camera.lookAt(self.wNode)
+        self.wNode.setMaterial(self.myMaterial)
+        if lose==1:
+                self.wNode.removeNode()
         end2=time.time()
         print(end2-start2)
 
@@ -410,7 +417,7 @@ class WormDemo(ShowBase):
         if self.keyMap["wm1"]:
             self.nWorm=wm(101,self.dt)
             self.updateWorm(1,0.05)
-            self.ship.removeNode()
+            self.wNode.removeNode()
             self.updateWorm(1,0.05)
             self.cnt=1
             self.unlockvalue=1
@@ -451,80 +458,39 @@ class WormDemo(ShowBase):
                 else:
                     self.unlockvalue=1
         if self.keyMap["mright"]:
-            self.cdown=0.05
-            self.cleft=1
-            self.cup=0.05
-            if self.cnt>0:
-                self.ship.removeNode()
-
-            self.cnt=self.cnt+1
-            self.c=self.c+1
-            self.vn='triangle'+str(self.c)
-            self.updateWorm(self.cright,self.cup)
-            # self.x=self.x+0.1
-            if self.cright<6:
-                self.cright=self.cright+0.5
-                print(self.cright)
-            # self.cright=self.cright+2
-            # self.ship.setPos(self.x,self.y,self.z)
-            # camera.lookAt(self.ship)
-            # if self.unlockvalue==1:
-            camera.lookAt(self.camerapos)
-            # else.
-        if self.keyMap["mleft"]:
-            self.cup=0.05
-            self.cdown=0.05
-            # self.cright=1
-            # self.cleft=7
-            # self.cright=1
-            # print(self.ship)
-            if self.cnt>0:
-                self.ship.removeNode()
-            # print(self.ship)
-            self.cnt=self.cnt+1
-            self.c=self.c+1
-            self.vn='triangle'+str(self.c)
-            self.updateWorm(self.cright,self.cup)
-            # self.cleft=self.cleft+2
-            # print(self.ship)
-            if self.cright>-6:
-                self.cright=self.cright-0.5
-                print(self.cright)
-            # self.x=self.x-0.1
-            # self.ship.setPos(self.x,self.y,self.z)
-            # if self.unlockvalue==1:
-            camera.lookAt(self.camerapos)
-        if self.keyMap["mdown"]:
-            self.cup=0.05
-            self.cright=1
-            self.cleft=1
 
             if self.cnt>0:
-                self.ship.removeNode()
-            # print(self.ship)
-            self.cnt=self.cnt+1
-            self.c=self.c+1
-            self.vn='triangle'+str(self.c)
-            self.updateWorm(0,-self.cdown)
-            if self.cdown<10:
-                self.cdown=self.cdown+1
-            if self.unlockvalue==1:
+                self.wNode.removeNode()
+
+                self.cnt=self.cnt+1
+                self.c=self.c+1
+                self.vn='triangle'+str(self.c)
+                self.updateWorm(self.cright,self.cup)
+
+                if self.cright<6:
+              	     self.cright=self.cright+0.5
+  
                 camera.lookAt(self.camerapos)
-        if self.keyMap["mup"]:
-            self.cdown=0.05
-            self.cright=1
-            self.cleft=1
-            if self.cnt>0:
-                self.ship.removeNode()
-            # print(self.ship)
-            self.cnt=self.cnt+1
-            self.c=self.c+1
-            self.vn='triangle'+str(self.c)
-            self.updateWorm(0,self.cup)
-            if self.cup<10:
-                self.cup=self.cup+1
+           
+        if self.keyMap["mleft"]:
 
-            camera.lookAt(self.ship)
+
+            if self.cnt>0:
+                self.wNode.removeNode()
+          
+                self.cnt=self.cnt+1
+                self.c=self.c+1
+                self.vn='triangle'+str(self.c)
+                self.updateWorm(self.cright,self.cup)
+
+                if self.cright>-6:
+                    self.cright=self.cright-0.5
+
+ 
+                camera.lookAt(self.camerapos)
+
+
+          
         return task.cont
 
 
