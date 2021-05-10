@@ -57,7 +57,7 @@ class WormDemo(ShowBase):
                                   fg=(1, 1, 1, 1), shadow=(0, 0, 0, .5),
                                   pos=(0.1, 0.1), scale=.1,align=TextNode.ALeft)
         # Post the instructions
-        self.inst1 = addInstructions(0.06, "[ESC]: Quit")
+        self.inst1 = addInstructions(0.06, "[H]: START GAME")
         self.inst2 = addInstructions(0.12, "[J]: Rotate Worm Left")
         self.inst3 = addInstructions(0.18, "[L]: Rotate Worm Right")
         self.inst4 = addInstructions(0.24, "[W]: Zoom Out")
